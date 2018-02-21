@@ -1,0 +1,49 @@
+{% extends 'game/main.html' %}
+
+{% block title %}Pridaj duel{% endblock %}
+
+{% block content %}
+<h1>Add duel</h1>
+
+<div class="row">
+    <div class="col col-md-6">
+        <form id="add_duel_form" method="post" action="/game/add_duel/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="game-select">Game</label>
+                <select class="form-control" id="game-select" name="game-select">
+                    <option disabled selected value> -- select an option -- </option>
+                    {% for game in games %}
+                        <option value="{{ game.id }}">
+                            {{ game }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="winner-select">Winner</label>
+                <select class="form-control" id="winner-select" name="winner-select">
+                    <option disabled selected value> -- select an option -- </option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">
+                            {{ user }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="loser-select">Loser</label>
+                <select class="form-control" id="loser-select" name="loser-select">
+                    <option disabled selected value> -- select an option -- </option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">
+                            {{ user }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="add-duel-btn">Add row</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
