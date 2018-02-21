@@ -1,0 +1,36 @@
+{% extends 'game/main.html' %}
+{% load game_parts %}
+
+{% block title %}Body{% endblock %}
+
+{% block content %}
+    {% if error is not None %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% else %}
+        <h3>Body</h3>
+        <table class="table hover">
+            <thead>
+                <th></th>
+                {% for game in games %}
+                    <th>{{ game.name }}</th>
+                {% endfor %}
+            </thead>
+            <tbody>
+                {% for person in people %}
+                    {% with row=points|get_key:person.id %}
+                        <tr>
+                            <td>{{ person }}</td>
+                            {% for game in games %}
+                                <td>
+                                    {{ row | get_key:game.id }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
