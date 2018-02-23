@@ -30,7 +30,6 @@ class AddDuelForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
         winner = cleaned_data.get('winner')
         loser = cleaned_data.get('loser')
         if winner is not None and winner == loser:
