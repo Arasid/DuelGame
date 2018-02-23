@@ -12,21 +12,25 @@
         <h3>Body</h3>
         <table class="table hover">
             <thead>
-                <th></th>
+                <th>#</th>
+                <th>Meno</th>
                 {% for game in games %}
                     <th>{{ game.name }}</th>
                 {% endfor %}
+                <th>Súčin</th>
             </thead>
             <tbody>
                 {% for person in people %}
                     {% with row=points|get_key:person.id %}
                         <tr>
+                            <td>{{ row.order }}</td>
                             <td>{{ person }}</td>
                             {% for game in games %}
                                 <td>
                                     {{ row | get_key:game.id }}
                                 </td>
                             {% endfor %}
+                            <td>{{ row.product }}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}

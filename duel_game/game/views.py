@@ -33,6 +33,24 @@ def points(request):
         game = loss['game']
         lost_duels = loss['duels']
         points[loser][game] += LOSER_POINTS * lost_duels
+
+    for person in people:
+        product = 1
+        for game in games:
+            product *= points[person.id][game.id]
+        points[person.id]['product'] = product
+
+    people = sorted(people, key=lambda person : -points[person.id]['product'])
+
+    last_points = -1
+    last_order = 0
+    for person in people:
+        if points[person.id]['product'] != last_points:
+            last_order += 1
+            last_points = points[person.id]['product']
+        points[person.id]['order'] = last_order
+
+
     context_dict = {
         'points': points,
         'games': games,
