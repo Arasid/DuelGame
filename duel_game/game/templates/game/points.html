@@ -22,6 +22,15 @@
     .group-6 {
         background-color: rgba(140, 86, 75, 0.4); // brown
     }
+    table.table-bordered{
+        border:1px solid #7f7f7f;
+    }
+    table.table-bordered > thead > tr > th{
+        border:1px solid #7f7f7f;
+    }
+    table.table-bordered > tbody > tr > td{
+        border:1px solid #7f7f7f;
+    }
 {% endblock %}
 
 {% block content %}
@@ -40,27 +49,27 @@
             {% endfor %}
             </tr>
         </table>
-        <table class="table table-condensed">
+        <table class="table table-condensed table-bordered">
             <thead>
-                <th>#</th>
+                <th class="text-right">#</th>
                 <th>Meno</th>
                 {% for game in games %}
-                    <th>{{ game.name }}</th>
+                    <th class="text-center">{{ game.name }}</th>
                 {% endfor %}
-                <th>Súčin</th>
+                <th class="text-center">Súčin</th>
             </thead>
             <tbody>
                 {% for person in people %}
                     {% with row=points|get_key:person.id %}
                         <tr class="group-{{ person.group }}">
-                            <td>{{ row.order }}</td>
+                            <td class="text-right">{{ row.order }}</td>
                             <td>{{ person }}</td>
                             {% for game in games %}
-                                <td>
+                                <td class="text-center">
                                     {{ row | get_key:game.id }}
                                 </td>
                             {% endfor %}
-                            <td><b>{{ row.product }}</b></td>
+                            <td class="text-right"><b>{{ row.product }}</b></td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
