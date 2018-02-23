@@ -72,6 +72,8 @@ def add_duel(request):
             winner = form.cleaned_data.get('winner')
             loser = form.cleaned_data.get('loser')
 
+            request.session['game_type'] = game.id
+
             Duel.objects.create(
                     winner=winner,
                     loser=loser,
@@ -79,7 +81,11 @@ def add_duel(request):
 
             return redirect('add_duel')
     else:
-        form = AddDuelForm()
+        print(request.session)
+        if request.session.get('game_type', 0):
+            form = AddDuelForm(initial={'game': request.session.get('game_type')})
+        else:
+            form = AddDuelForm()
 
     return render(request, 'game/add_duel.html', {'form': form})
 
