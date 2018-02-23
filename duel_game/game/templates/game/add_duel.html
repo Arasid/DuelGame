@@ -1,20 +1,41 @@
 {% extends 'game/main.html' %}
+{% load game_parts %}
 
 {% block title %}Pridaj duel{% endblock %}
 
 {% block style %}
     {{ block.super }}
-    #id_winner {
-        background-color: rgba(44, 160, 44, 0.4); // green
-    }
-    #id_loser {
-        background-color: rgba(214, 39, 40, 0.4); // red
-    }
     #id_winner, #id_loser {
         overflow: hidden;
     }
     #add-duel-btn {
         width: 100%;
+    }
+    .group-1:before {
+        background-color: rgba(44, 160, 44, 1.0); // green
+    }
+    .group-2:before {
+        background-color: rgba(31, 119, 180, 1.0); // blue
+    }
+    .group-3:before {
+        background-color: rgba(214, 39, 40, 1.0); // red
+    }
+    .group-4:before {
+        background-color: rgba(255, 127, 14, 1.0); // orange
+    }
+    .group-5:before {
+        background-color: rgba(148, 103, 189, 1.0); // purple
+    }
+    .group-6:before {
+        background-color: rgba(140, 86, 75, 1.0); // brown
+    }
+    option:before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1px solid white;
+        margin-right: 5px;
     }
 {% endblock %}
 
@@ -46,7 +67,17 @@
 		<div class="col col-md-6">
             <div class="form-group">
                 <label for="id_winner">Winner</label>
-                {{ form.winner }}
+                <select class="form-control" id="id_winner" name="winner" size={{ form.winner | length }}>
+                    {% for winner in form.winner %}
+                        {% with group=people_groups|get_key:winner.data.value %}
+                            <option
+                                value="{{ winner.data.value }}"
+                                {% if winner.data.attrs.selected %}selected{% endif %}
+                                class="group-{{ group }}"
+                            >{{ winner.data.label }}</option>
+                        {% endwith %}
+                    {% endfor %}
+                <select>
             </div>
             {% if form.winner.errors %}
                 <div class="alert alert-danger" role="alert">
@@ -57,7 +88,17 @@
 		<div class="col col-md-6">
             <div class="form-group">
                 <label for="id_loser">Loser</label>
-                {{ form.loser }}
+                <select class="form-control" id="id_loser" name="loser" size={{ form.loser | length }}>
+                    {% for loser in form.loser %}
+                        {% with group=people_groups|get_key:loser.data.value %}
+                            <option
+                                value="{{ loser.data.value }}"
+                                {% if loser.data.attrs.selected %}selected{% endif %}
+                                class="group-{{ group }}"
+                            >{{ loser.data.label }}</option>
+                        {% endwith %}
+                    {% endfor %}
+                <select>
             </div>
             {% if form.loser.errors %}
                 <div class="alert alert-danger" role="alert">

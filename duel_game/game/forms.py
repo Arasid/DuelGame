@@ -3,6 +3,7 @@ from django.db.models import Q
 
 from .models import GameType, Person, Duel
 
+
 class AddDuelForm(forms.Form):
     game = forms.ModelChoiceField(
             queryset=GameType.objects.all(),

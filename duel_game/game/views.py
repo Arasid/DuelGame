@@ -81,13 +81,20 @@ def add_duel(request):
 
             return redirect('add_duel')
     else:
-        print(request.session)
         if request.session.get('game_type', 0):
             form = AddDuelForm(initial={'game': request.session.get('game_type')})
         else:
             form = AddDuelForm()
+    people = Person.objects.all()
+    people_groups = {}
+    for person in people:
+        people_groups[person.id] = person.group
 
-    return render(request, 'game/add_duel.html', {'form': form})
+    context_dict = {
+        'form': form,
+        'people_groups': people_groups,
+    }
+    return render(request, 'game/add_duel.html', context_dict)
 
 @login_required
 def user_logout(request):
