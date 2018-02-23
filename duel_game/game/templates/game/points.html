@@ -3,6 +3,7 @@
 
 {% block title %}Body{% endblock %}
 {% block style %}
+    {{ block.super }}
     .group-1 {
         background-color: rgba(44, 160, 44, 0.4); // green
     }
@@ -39,7 +40,7 @@
             {% endfor %}
             </tr>
         </table>
-        <table class="table hover">
+        <table class="table table-condensed">
             <thead>
                 <th>#</th>
                 <th>Meno</th>

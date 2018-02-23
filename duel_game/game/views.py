@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,7 @@ from django.db.models import Count
 
 from game import constants
 from .constants import WINNER_POINTS, LOSER_POINTS
+from .forms import AddDuelForm
 from .models import Person, GameType, Duel
 
 def index(request):
@@ -65,31 +66,22 @@ def points(request):
 @staff_member_required
 def add_duel(request):
     if request.method == 'POST':
-        game_id = request.POST.get('game-select')
-        winner_id = request.POST.get('winner-select')
-        loser_id = request.POST.get('loser-select')
+        form = AddDuelForm(request.POST)
+        if form.is_valid():
+            game = form.cleaned_data.get('game')
+            winner = form.cleaned_data.get('winner')
+            loser = form.cleaned_data.get('loser')
 
-        game = GameType.objects.get(pk=game_id)
-        winner = Person.objects.get(pk=winner_id)
-        loser = Person.objects.get(pk=loser_id)
-        if winner == loser:
-            return HttpResponseRedirect('/game/add_duel/')
+            Duel.objects.create(
+                    winner=winner,
+                    loser=loser,
+                    game=game)
 
-        Duel.objects.create(
-                winner=winner,
-                loser=loser,
-                game=game)
-
-        return HttpResponseRedirect('/game/add_duel/')
+            return redirect('add_duel')
     else:
-        users = Person.objects.all()
-        games = GameType.objects.all()
+        form = AddDuelForm()
 
-        context_dict = {
-            'users': users,
-            'games': games,
-        }
-        return render(request, 'game/add_duel.html', context_dict)
+    return render(request, 'game/add_duel.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
