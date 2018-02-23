@@ -6,7 +6,7 @@ class GameTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'group')
 
 class DuelAdmin(admin.ModelAdmin):
     list_display = ('id', 'game', 'winner', 'loser')

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
 
+from game import constants
 from .constants import WINNER_POINTS, LOSER_POINTS
 from .models import Person, GameType, Duel
 
@@ -27,12 +28,12 @@ def points(request):
         winner = win['winner']
         game = win['game']
         won_duels = win['duels']
-        points[winner][game] += WINNER_POINTS * won_duels
+        points[winner][game] += constants.WINNER_POINTS * won_duels
     for loss in losses:
         loser = loss['loser']
         game = loss['game']
         lost_duels = loss['duels']
-        points[loser][game] += LOSER_POINTS * lost_duels
+        points[loser][game] += constants.LOSER_POINTS * lost_duels
 
     for person in people:
         product = 1
@@ -50,11 +51,13 @@ def points(request):
             last_points = points[person.id]['product']
         points[person.id]['order'] = last_order
 
+    groups = constants.Group.GROUP_CHOICES
 
     context_dict = {
         'points': points,
         'games': games,
         'people': people,
+        'groups': groups,
     }
     return render(request, 'game/points.html', context_dict)
 

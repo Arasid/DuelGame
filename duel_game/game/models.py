@@ -1,5 +1,6 @@
 from django.db import models
 
+from game import constants
 
 # Je asi zbytocne to mat v db, ale tak preco nie O:-)
 class GameType(models.Model):
@@ -14,6 +15,7 @@ class GameType(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=200)
+    group = models.IntegerField(choices=constants.Group.GROUP_CHOICES)
 
     def __str__(self):
         return self.name

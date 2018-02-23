@@ -2,6 +2,26 @@
 {% load game_parts %}
 
 {% block title %}Body{% endblock %}
+{% block style %}
+    .group-1 {
+        background-color: rgba(44, 160, 44, 0.4); // green
+    }
+    .group-2 {
+        background-color: rgba(31, 119, 180, 0.4); // blue
+    }
+    .group-3 {
+        background-color: rgba(214, 39, 40, 0.4); // red
+    }
+    .group-4 {
+        background-color: rgba(255, 127, 14, 0.4); // orange
+    }
+    .group-5 {
+        background-color: rgba(148, 103, 189, 0.4); // purple
+    }
+    .group-6 {
+        background-color: rgba(140, 86, 75, 0.4); // brown
+    }
+{% endblock %}
 
 {% block content %}
     {% if error is not None %}
@@ -10,6 +30,15 @@
         </div>
     {% else %}
         <h3>Body</h3>
+        <table class="table groups text-center">
+            <tr>
+            {% for code, name in groups %}
+                <td class="group-{{ code }}">
+                    {{ name }}
+                </td>
+            {% endfor %}
+            </tr>
+        </table>
         <table class="table hover">
             <thead>
                 <th>#</th>
@@ -22,7 +51,7 @@
             <tbody>
                 {% for person in people %}
                     {% with row=points|get_key:person.id %}
-                        <tr>
+                        <tr class="group-{{ person.group }}">
                             <td>{{ row.order }}</td>
                             <td>{{ person }}</td>
                             {% for game in games %}
@@ -30,7 +59,7 @@
                                     {{ row | get_key:game.id }}
                                 </td>
                             {% endfor %}
-                            <td>{{ row.product }}</td>
+                            <td><b>{{ row.product }}</b></td>
                         </tr>
                     {% endwith %}
                 {% endfor %}

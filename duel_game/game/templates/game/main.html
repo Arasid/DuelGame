@@ -6,6 +6,9 @@
         <link rel="stylesheet" href="{% static 'game/css/bootstrap.min.css' %}">
         <link rel="icon" type="image/png" href="{% static "game/favicon.ico" %}"/>
         <title>{% block title %}DuelGame{% endblock %}</title>
+        <style>
+            {% block style %}{% endblock %}
+        </style>
     </head>
 
     <body>
