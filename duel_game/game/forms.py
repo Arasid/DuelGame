@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from .models import GameType, Person, Duel
+from game.models import GameType, Person, Duel
 
 
 class AddDuelForm(forms.Form):
@@ -15,18 +15,12 @@ class AddDuelForm(forms.Form):
     people = Person.objects.all()
     winner = forms.ModelChoiceField(
             queryset=people,
-            widget=forms.Select(attrs={
-                'class': 'form-control',
-                'size': len(people),
-            }),
+            widget=forms.Select(),
             empty_label=None,
     )
     loser = forms.ModelChoiceField(
             queryset=people,
-            widget=forms.Select(attrs={
-                'class': 'form-control',
-                'size': len(people),
-            }),
+            widget=forms.Select(),
             empty_label=None,
     )
 

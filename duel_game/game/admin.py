@@ -9,7 +9,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'group')
 
 class DuelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'game', 'winner', 'loser')
+    list_display = ('id', 'timestamp', 'game', 'winner', 'loser')
 
 admin.site.register(GameType, GameTypeAdmin)
 admin.site.register(Person, PersonAdmin)

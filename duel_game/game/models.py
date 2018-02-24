@@ -28,9 +28,10 @@ class Duel(models.Model):
     winner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='winner')
     loser = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='loser')
     game = models.ForeignKey(GameType, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '(Duel-%s-%s-%s)' % (self.winner, self.loser, self.game)
+        return '(Duel-%s-%s-%s-%s)' % (self.timestamp, self.winner, self.loser, self.game)
 
     def __unicode__(self):
-        return '(Duel-%s-%s-%s)' % (self.winner, self.loser, self.game)
+        return '(Duel-%s-%s-%s-%s)' % (self.timestamp, self.winner, self.loser, self.game)
