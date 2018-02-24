@@ -1,5 +1,6 @@
 WINNER_POINTS = 3
 LOSER_POINTS = 1
+LAST_N_MIN_DUELS = 5
 
 class Group(object):
     GROUP_1 = 1

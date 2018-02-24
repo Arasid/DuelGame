@@ -113,4 +113,39 @@
 		</div>
 	</div>
 </form>
+
+<h1>Duely za posledných 5 minút</h1>
+<table class="table">
+    <thead>
+        <th>#</th>
+        <th>Timestamp</th>
+        <th>Game</th>
+        <th>Winner</th>
+        <th>Loser</th>
+        <th class="text-center">Remove</th>
+    </thead>
+    <tbody>
+        {% for duel in duels %}
+            <tr>
+                <td>{{ duel.id }}</td>
+                <td>{{ duel.timestamp }}</td>
+                <td>{{ duel.game }}</td>
+                <td>{{ duel.winner }}</td>
+                <td>{{ duel.loser }}</td>
+                <td class="text-center">
+                    <form
+                        id="remove_duel_{{duel.id}}_form"
+                        method="post"
+                        action="/game/remove_duel/{{ duel.id }}/"
+                    >
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-xs" name="remove-duel">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

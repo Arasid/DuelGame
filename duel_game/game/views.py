@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -90,14 +92,25 @@ def add_duel(request):
     for person in people:
         people_groups[person.id] = person.group
 
+    five_min_ago = datetime.datetime.now() - datetime.timedelta(minutes=constants.LAST_N_MIN_DUELS)
+    duels = Duel.objects.all().filter(timestamp__gte=five_min_ago).order_by('-timestamp')
+
     context_dict = {
         'form': form,
         'people_groups': people_groups,
+        'duels': duels,
     }
     return render(request, 'game/add_duel.html', context_dict)
+
+@login_required
+@staff_member_required
+def remove_duel(request, duel_id):
+    duel = Duel.objects.filter(pk=duel_id).first()
+    if duel is not None:
+        duel.delete()
+    return redirect('add_duel')
 
 @login_required
 def user_logout(request):
     logout(request)
     return redirect('index')
-
