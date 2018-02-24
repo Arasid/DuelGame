@@ -50,8 +50,8 @@
 
 <form id="add_duel_form" method="post" action="/game/add_duel/">
     {% csrf_token %}
-	<div class="row">
-		<div class="col col-md-12">
+    <div class="row">
+        <div class="col col-md-12">
             <div class="form-group">
                 <label for="id_game">Game</label>
                 {{ form.game }}
@@ -61,10 +61,10 @@
                     {{ form.game.errors }}
                 </div>
             {% endif %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col col-md-6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6">
             <div class="form-group">
                 <label for="id_winner">Winner</label>
                 <select class="form-control" id="id_winner" name="winner" size={{ form.winner | length }}>
@@ -84,8 +84,8 @@
                     {{ form.winner.errors }}
                 </div>
             {% endif %}
-		</div>
-		<div class="col col-md-6">
+        </div>
+        <div class="col col-md-6">
             <div class="form-group">
                 <label for="id_loser">Loser</label>
                 <select class="form-control" id="id_loser" name="loser" size={{ form.loser | length }}>
@@ -105,13 +105,13 @@
                     {{ form.loser.errors }}
                 </div>
             {% endif %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col col-md-12">
-			<button type="submit" class="btn btn-primary btn-lg" id="add-duel-btn">Add Duel</button>
-		</div>
-	</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            <button type="submit" class="btn btn-primary btn-lg" id="add-duel-btn">Add Duel</button>
+        </div>
+    </div>
 </form>
 
 <h1>Duely za posledných 5 minút</h1>

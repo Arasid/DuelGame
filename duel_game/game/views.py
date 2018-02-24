@@ -13,7 +13,7 @@ from .forms import AddDuelForm
 from .models import Person, GameType, Duel
 
 def index(request):
-	return render(request, 'game/index.html', {})
+    return render(request, 'game/index.html', {})
 
 def points(request):
     duels = Duel.objects.all()
